@@ -1,15 +1,15 @@
 import { useState } from "react";
 import "./App.css";
 import Todos from "./components/Todos";
+import { useTodos } from "./queries/useTodos";
+import { useAddTodo } from "./mutations/useAddTodo";
 
-interface Todo {
-  title: string;
-  description: string;
-}
 function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [Title, setTitle] = useState("");
+  const { data: todos } = useTodos();
+  const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
+  const { mutate } = useAddTodo();
+  
 
   const handleTitleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     return setTitle(e.target.value);
@@ -20,9 +20,12 @@ function App() {
 
   const handleSubmit = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTodos([...todos, { title: Title, description: desc }]);
     setTitle("");
     setDesc("");
+    mutate({
+      title: title,
+      description: desc,
+    });
   };
   return (
     <div>
@@ -34,7 +37,7 @@ function App() {
             type="text"
             placeholder="title"
             className="py-2 px-3 rounded-l border outline-none w-full"
-            value={Title}
+            value={title}
           />
           <input
             type="text"
@@ -52,7 +55,7 @@ function App() {
         </form>
       </div>
       <div>
-        {todos.map((todo, index) => (
+        {todos?.map((todo, index) => (
           <Todos key={index} todo={todo} />
         ))}
       </div>
