@@ -6,11 +6,11 @@ import { useDeleteTodo } from "../mutations/useDeleteTodo";
 const Todo = () => {
   const { id }: { id: string } = useParams();
   const { data } = useTodo(id);
-  const { mutate } = useDeleteTodo(id);
+  //   const { mutate } = useDeleteTodo(id);
 
-  const deleteTodo = (id) => {
-    return mutate(id);
-  };
+  //   const deleteTodo = (id) => {
+  //     return mutate(id);
+  //   };
   return (
     <div>
       <div className="flex flex-col">
@@ -19,7 +19,7 @@ const Todo = () => {
       </div>
       <div>
         <button>Update</button>
-        <button onClick={deleteTodo}>Delete</button>
+        <button>Delete</button>
       </div>
     </div>
   );
