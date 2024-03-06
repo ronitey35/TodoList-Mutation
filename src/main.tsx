@@ -16,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route index element={<App />} />
           <Route path="/todos" element={<App />} />
           <Route path="/todo/:id" element={<Todo />} />
+          <Route path="/todo/:id" element={<Todo />} />
         </Routes>
       </QueryClientProvider>
     </Router>

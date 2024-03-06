@@ -9,15 +9,12 @@ export const useDeleteTodo = (id: string) => {
     mutationKey: ["deletetodo", id],
     mutationFn: deleteTodo,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["deletetodo"] });
+      queryClient.invalidateQueries({ queryKey: ["todos"] });
       navigate("/");
     },
   });
 };
 
 const deleteTodo = async (id: string) => {
-  const { data } = await axios.delete(
-    `https://todo-crud-beta.vercel.app/api/todo/${id}`
-  );
-  return data.todo;
+  await axios.delete(`https://todo-crud-beta.vercel.app/api/todo/${id}`);
 };
